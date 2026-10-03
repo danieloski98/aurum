@@ -23,6 +23,10 @@
 # misc
 .DS_Store
 *.pem
+.junie
+.trae
+.windsurf
+supabase/.temp
 
 # debug
 npm-debug.log*
@@ -31,7 +35,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
 
 # vercel
 .vercel
@@ -39,3 +42,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+config.bat

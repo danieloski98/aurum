@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js + React Hook Form + Supabase Starter
+
+A modern Next.js App Router application built with **TypeScript**, **React Hook Form**, and the official **Supabase SDK** (`@supabase/ssr` & `@supabase/supabase-js`).
+
+## Features
+
+- **Next.js App Router**: Optimized layout and routing with React 19 / Next.js 16.
+- **Form Management with React Hook Form**:
+  - Type-safe forms with `useForm<T>`
+  - Real-time field validation & custom error messages
+  - Async submit handling & loading states
+- **Supabase Integration**:
+  - Browser Client (`src/lib/supabase/client.ts`) for client components
+  - Server Client (`src/lib/supabase/server.ts`) with cookie handling for Server Components & Server Actions
+  - `.env.local` configuration setup
+- **Modern UI & Glassmorphism Design**: Custom dark-mode styling with subtle gradients, responsive grids, and icons from `lucide-react`.
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
+### 1. Install Dependencies (already installed)
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Supabase Environment Variables
+Copy `.env.example` to `.env.local` and add your project details from the [Supabase Dashboard](https://supabase.com/dashboard):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+teaching/
+├── src/
+│   ├── app/
+│   │   ├── globals.css         # Custom styling, dark mode & glassmorphism theme
+│   │   ├── layout.tsx          # Root Next.js layout
+│   │   └── page.tsx            # Main showcase dashboard
+│   ├── components/
+│   │   ├── SupabaseStatus.tsx        # Connection status & setup guide
+│   │   ├── UserRegistrationForm.tsx  # Auth & signup form (react-hook-form)
+│   │   └── TeachingNotesForm.tsx     # Data insertion form (react-hook-form + Supabase)
+│   └── lib/
+│       └── supabase/
+│           ├── client.ts       # Supabase browser client builder
+│           └── server.ts       # Supabase server client builder
+├── .env.example
+├── .env.local
+└── package.json
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Forms Included
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **User Registration Form** ([`src/components/UserRegistrationForm.tsx`](file:///Users/angel/Documents/Projects/teaching/src/components/UserRegistrationForm.tsx))
+   - Name, Email, Password validation with regex pattern matching.
+   - Role dropdown and Terms of Service checkbox required field validation.
+   - Calls `supabase.auth.signUp()`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Teaching Notes Form** ([`src/components/TeachingNotesForm.tsx`](file:///Users/angel/Documents/Projects/teaching/src/components/TeachingNotesForm.tsx))
+   - Title, Category, Priority, Content textarea, and Public visibility toggle.
+   - Insert records into Supabase table via `supabase.from('notes').insert(...)`.
